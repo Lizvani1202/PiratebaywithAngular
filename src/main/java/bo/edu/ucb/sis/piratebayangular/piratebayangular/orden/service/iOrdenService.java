@@ -7,6 +7,7 @@ import java.util.Optional;
 
 public interface iOrdenService {
     public List<Orden> findAll();
+    public void save(Orden orden);
     public Orden findOrden(Orden orden);
 
     public void deleteOrder(Orden orden);

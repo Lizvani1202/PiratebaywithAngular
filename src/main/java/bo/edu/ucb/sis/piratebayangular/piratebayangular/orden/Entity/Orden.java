@@ -1,6 +1,7 @@
 package bo.edu.ucb.sis.piratebayangular.piratebayangular.orden.Entity;
 
 import javax.persistence.*;
+import javax.persistence.Id;
 import java.io.Serializable;
 import java.util.Date;
 
