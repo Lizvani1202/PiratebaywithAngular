@@ -8,8 +8,11 @@ import bo.edu.ucb.sis.piratebayangular.piratebayangular.security.entity.Rol;
 import bo.edu.ucb.sis.piratebayangular.piratebayangular.security.entity.Usuario;
 import bo.edu.ucb.sis.piratebayangular.piratebayangular.security.enums.RolNombre;
 import bo.edu.ucb.sis.piratebayangular.piratebayangular.security.jwt.JwtProvider;
+import bo.edu.ucb.sis.piratebayangular.piratebayangular.security.jwt.JwtTokenFilter;
 import bo.edu.ucb.sis.piratebayangular.piratebayangular.security.service.RolService;
 import bo.edu.ucb.sis.piratebayangular.piratebayangular.security.service.UsuarioService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -31,6 +34,7 @@ import java.util.Set;
 @CrossOrigin
 public class AuthController {
 
+    private final static Logger LOGGER= LoggerFactory.getLogger(AuthController.class);
     @Autowired
     PasswordEncoder passwordEncoder;
 
@@ -67,15 +71,18 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<JwtDto>login(@Valid @RequestBody LoginUsuario loginUsuario, BindingResult bindingResult){
+    public ResponseEntity<JwtDto> login(@Valid @RequestBody LoginUsuario loginUsuario, BindingResult bindingResult){
         if(bindingResult.hasErrors())
-            return new ResponseEntity(new Mensaje("campos mal ingresados"), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity(new Mensaje("campos mal puestos"), HttpStatus.BAD_REQUEST);
+        System.out.println(loginUsuario);
+        LOGGER.error(loginUsuario+ " ");
         Authentication authentication =
-                authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginUsuario.getNombreUsuario(),loginUsuario.getPassword()));
+                authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginUsuario.getNombreUsuario(), loginUsuario.getPassword()));
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String jwt = jwtProvider.generateToken(authentication);
-        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-        JwtDto jwtDto = new JwtDto(jwt, userDetails.getUsername(),userDetails.getAuthorities());
-        return new ResponseEntity(jwtDto,HttpStatus.OK);
+        UserDetails userDetails = (UserDetails)authentication.getPrincipal();
+        JwtDto jwtDto = new JwtDto(jwt, userDetails.getUsername(), userDetails.getAuthorities());
+        return new ResponseEntity(jwtDto, HttpStatus.OK);
     }
+
 }

@@ -35,6 +35,7 @@ public class JwtTokenFilter extends OncePerRequestFilter {
                         new UsernamePasswordAuthenticationToken(userDetails,null, userDetails.getAuthorities());
                 SecurityContextHolder.getContext().setAuthentication(auth);
             }
+
         }catch (Exception e){
             LOGGER.error("Fail en el metodo doFilter");
         }
@@ -45,7 +46,7 @@ public class JwtTokenFilter extends OncePerRequestFilter {
     private String getToken (HttpServletRequest request){
         String header = request.getHeader("Authorization");
         if(header !=null  && header.startsWith("Bearer")){
-            return header.replace("Bearer","");
+            return header.replace("Bearer ","");
 
         }else{
             return null;
