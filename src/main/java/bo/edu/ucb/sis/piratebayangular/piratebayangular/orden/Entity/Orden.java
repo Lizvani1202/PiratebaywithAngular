@@ -1,4 +1,4 @@
-package bo.edu.ucb.sis.piratebayangular.piratebayangular.orden;
+package bo.edu.ucb.sis.piratebayangular.piratebayangular.orden.Entity;
 
 import javax.persistence.*;
 import java.io.Serializable;
