@@ -7,7 +7,7 @@ import java.util.Date;
 
 @Entity
 @Table(name = "orden")
-public class Orden implements Serializable {
+public class  Orden implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idOrden;

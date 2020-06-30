@@ -33,17 +33,7 @@ public class OrdenServiceImp implements iOrdenService{
         iOrdenDao.save(orden);
     }
 
-    @Override
-    @Transactional(readOnly = true)
-    public Orden findOrden(Orden orden) {
-        return (Orden)iOrdenDao.findByFechaEntregado(orden.getFechaEntregado());
-    }
 
-    @Override
-    @Transactional
-    public void deleteOrder(Orden orden) {
-        iOrdenDao.deleteById(orden.getIdOrden());
-    }
 
     @Override
     @Transactional
@@ -52,16 +42,10 @@ public class OrdenServiceImp implements iOrdenService{
     }
 
     @Override
-    @Transactional(readOnly = true)
-    public Optional<Orden> findOrdenByIdOrden(Long idOrden) {
-        return (Optional<Orden>)iOrdenDao.findByIdOrden(idOrden);
+    public Optional<Orden> findOrdenById(Long id) {
+        return (Optional<Orden>)iOrdenDao.findByIdOrden(id);
     }
 
-    @Override
-    @Transactional
-    public void deleteOrden(Long id) {
-        iOrdenDao.deleteById(id);
-    }
 
     @Override
     @Transactional(readOnly = true)
@@ -70,8 +54,7 @@ public class OrdenServiceImp implements iOrdenService{
     }
 
     @Override
-    @Transactional(readOnly = true)
-    public Orden findByIdOrdenSQL(Long id) {
+    public Orden findByIdSQL(Long id) {
         return iOrdenDao.findByIdOrdenSQL(id);
     }
 
