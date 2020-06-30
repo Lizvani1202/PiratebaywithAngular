@@ -8,11 +8,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @CrossOrigin
 @RequestMapping("/api")
 public class OrdenRestController {
+
+
 
     @Autowired
     private iOrdenService ordenService;
@@ -26,5 +29,11 @@ public class OrdenRestController {
     public ResponseEntity<Void>addOrden(@RequestBody Orden orden){
         ordenService.save(orden);
         return new ResponseEntity<Void>(HttpStatus.CREATED);
+    }
+    @GetMapping("/buscar/{idOrden}")
+    @ResponseStatus(HttpStatus.OK)
+    public Optional<Orden> getId(@PathVariable(value = "idOrden")Long id){
+        Optional<Orden> orden = ordenService.findById(id);
+        return orden;
     }
 }

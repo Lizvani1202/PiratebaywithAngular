@@ -7,6 +7,7 @@ import java.util.Optional;
 
 public interface iOrdenService {
     public List<Orden> findAll();
+    Optional<Orden> findById(Long id);
     public void save(Orden orden);
     public Orden findOrden(Orden orden);
 

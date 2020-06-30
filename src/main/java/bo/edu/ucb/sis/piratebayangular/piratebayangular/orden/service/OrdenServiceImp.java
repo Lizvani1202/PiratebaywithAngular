@@ -23,6 +23,11 @@ public class OrdenServiceImp implements iOrdenService{
     }
 
     @Override
+    public Optional<Orden> findById(Long id) {
+        return iOrdenDao.findByIdOrden(id);
+    }
+
+    @Override
     @Transactional
     public void save(Orden orden) {
         iOrdenDao.save(orden);
@@ -69,4 +74,6 @@ public class OrdenServiceImp implements iOrdenService{
     public Orden findByIdOrdenSQL(Long id) {
         return iOrdenDao.findByIdOrdenSQL(id);
     }
+
+
 }

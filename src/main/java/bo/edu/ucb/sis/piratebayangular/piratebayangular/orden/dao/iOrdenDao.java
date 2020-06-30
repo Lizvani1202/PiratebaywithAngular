@@ -12,9 +12,9 @@ public interface iOrdenDao extends CrudRepository<Orden,Long> {
     public Orden findByFechaPagado(Date fechaPagado);
     public Orden findByFechaPreparado(Date fechaPreparado);
     public Orden findByFechaDespachado(Date fehaDespacho);
+    public Optional<Orden> findById(Long id);
     public Orden findByFechaEntregado(Date fechaEntregado);
     public Optional<Orden>findByIdOrden(Long idOrden);
-
     @Query("select o from Orden o where o.idOrden=?1")
     public Orden findByIdOrdenSQL(Long id);
 }
