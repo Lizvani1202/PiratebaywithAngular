@@ -7,11 +7,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 @RestController
 @CrossOrigin
@@ -54,23 +56,25 @@ public class OrdenRestController {
         }else{
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-
     }
-//    @PutMapping("/update/{id}")
-//    public ResponseEntity<?>updateOrden(@PathVariable(value = "id") Long id,@RequestBody Orden orden){
-//        Orden ordenBd = null;
-//        ordenBd = ordenService.findByIdOrden(id);
-//        if(ordenBd != null){
-//            ordenBd.setFechaEntregado(orden.getFechaEntregado());
-//            ordenBd.setFechaDespachado(orden.getFechaDespachado());
-//            ordenBd.setFechaPagado(orden.getFechaPagado());
-//            ordenBd.setFechaPreparado(orden.getFechaPreparado());
-//            ordenService.updateOrden(ordenBd);
-//            return new ResponseEntity<>(ordenBd,HttpStatus.OK);
-//        }else{
-//            return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
-//        }
-//    }
+
+
+    @PutMapping("/update")
+    public HashMap<String,Integer> updateOrden(@Valid @RequestBody Orden orden, BindingResult bindingResult){
+        HashMap<String,Integer> map = new HashMap<>();
+        if(bindingResult.hasErrors()){
+            map.put("Message", 400);
+        }else{
+            int response=ordenService.update(orden);
+            map.put("Message", response);
+        }
+        return map;
+    }
+
+
+
+
+
 
 
 }

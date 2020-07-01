@@ -14,5 +14,7 @@ public interface iOrdenService {
    public Optional<Orden>findOrdenById(Long id);
    public Orden findByIdOrden(Long id);
    public Orden findByIdSQL(Long id);
+    public int update(Orden orden);
+
 
 }

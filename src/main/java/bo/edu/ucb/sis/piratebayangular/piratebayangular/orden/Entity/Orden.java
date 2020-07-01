@@ -21,6 +21,9 @@ public class  Orden implements Serializable {
     @Column(name = "producto_tipo")
     private String productoTipo;
 
+    @Column(name = "cantidad")
+    private String cantidad;
+
     @Column(name = "monto")
     private double monto;
 
@@ -39,9 +42,14 @@ public class  Orden implements Serializable {
     @Column(name = "fecha_entregado")
     private Date fechaEntregado;
 
+    @Column(name = "estado")
+    private int estado;
+
     @Column(name = "tx_date")
     @Temporal(TemporalType.DATE)
     private Date tx_date;
+
+
 
     @PrePersist
     public void prePersist(){
@@ -128,6 +136,10 @@ public class  Orden implements Serializable {
         this.fechaEntregado = fechaEntregado;
     }
 
+    public int getEstado() { return estado; }
+
+    public void setEstado(int estado) { this.estado = estado; }
+
     public Date getTx_date() {
         return tx_date;
     }
@@ -136,6 +148,16 @@ public class  Orden implements Serializable {
         this.tx_date = tx_date;
     }
 
+
+
+
     private static final long serialVersionUID = 1L;
 
+    public String getCantidad() {
+        return cantidad;
+    }
+
+    public void setCantidad(String cantidad) {
+        this.cantidad = cantidad;
+    }
 }
