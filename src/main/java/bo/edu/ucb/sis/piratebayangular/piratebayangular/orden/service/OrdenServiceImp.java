@@ -59,14 +59,10 @@ public class OrdenServiceImp implements iOrdenService{
         return iOrdenDao.findByIdOrdenSQL(id);
     }
 
-
-
     public int update(Orden orden){
         int response=0;
 
-
         Orden ordenEntity=iOrdenDao.findByOrden(orden.getNumeroOrden());
-
 
         switch (ordenEntity.getEstado())
         {
@@ -75,6 +71,8 @@ public class OrdenServiceImp implements iOrdenService{
             case 2:  response=update_preparado(ordenEntity,orden);
                 break;
             case 3:  response=update_despachado(ordenEntity,orden);
+                break;
+            case 4:  response=update_entregado(ordenEntity,orden);
                 break;
             default: response = 400;
                 break;
@@ -111,6 +109,15 @@ public class OrdenServiceImp implements iOrdenService{
             return 400;
         }
     }
-
+    public int update_entregado(Orden orden,Orden ordenfecha){
+        if(orden.getEstado()==Estado.DESPACHADO.getEstado()){
+            orden.setFechaEntregado(ordenfecha.getFechaEntregado());
+            orden.setEstado(Estado.ENTREGADO.getEstado());
+            iOrdenDao.save(orden);
+            return 200;
+        }else {
+            return 400;
+        }
+    }
 
 }

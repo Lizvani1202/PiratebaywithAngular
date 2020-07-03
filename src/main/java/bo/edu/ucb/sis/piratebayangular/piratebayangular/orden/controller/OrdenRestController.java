@@ -2,14 +2,11 @@ package bo.edu.ucb.sis.piratebayangular.piratebayangular.orden.controller;
 
 import bo.edu.ucb.sis.piratebayangular.piratebayangular.orden.Entity.Orden;
 import bo.edu.ucb.sis.piratebayangular.piratebayangular.orden.service.iOrdenService;
-import org.aspectj.weaver.ast.Or;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-
 import javax.validation.Valid;
 import java.util.HashMap;
 import java.util.List;
@@ -57,8 +54,6 @@ public class OrdenRestController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
-
-
     @PutMapping("/update")
     public HashMap<String,Integer> updateOrden(@Valid @RequestBody Orden orden, BindingResult bindingResult){
         HashMap<String,Integer> map = new HashMap<>();
@@ -70,11 +65,4 @@ public class OrdenRestController {
         }
         return map;
     }
-
-
-
-
-
-
-
 }
